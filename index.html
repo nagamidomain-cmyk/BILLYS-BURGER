@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Billy's Burgers</title>
+
+<!-- Fonts: "Luckiest Guy" gives the bold, squashed, burger-diner look for headings. "Nunito" is the clean body font. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+/* ======================================================
+   COLOURS — change your colour scheme here, everything
+   else in the page reads from these variables.
+   ====================================================== */
+:root {
+  --sky-blue:       #bfe6f5;   /* cloud blue page background */
+  --sky-blue-light: #e4f6fd;   /* lighter blue for card backgrounds */
+  --cloud-white:    #ffffff;   /* clouds / cards / text on dark */
+  --bun-yellow:     #ffc94a;   /* main accent - toasted bun yellow */
+  --ketchup-red:    #e6462e;   /* accent - buttons, prices, ketchup red */
+  --lettuce-green:  #4caf6d;   /* accent - fresh green highlight */
+  --patty-brown:    #6b3a25;   /* dark brown - headings, footer, text */
+  --text-dark:      #3a2a1d;   /* main body text colour */
+}
+
+/* ======================================================
+   GENERAL / RESET
+   ====================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--sky-blue);
+  font-family: 'Nunito', sans-serif;
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+h1, h2, h3 {
+  font-family: 'Luckiest Guy', cursive; /* the "burger" style heading font */
+  color: var(--patty-brown);
+  letter-spacing: 1px;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+.section-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 60px 20px;
+}
+
+/* Reusable placeholder image box - swap these out for real photos */
+.placeholder-img {
+  background-color: var(--sky-blue-light);
+  border: 3px dashed var(--patty-brown);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--patty-brown);
+  font-weight: 700;
+  padding: 20px;
+}
+
+.placeholder-img .emoji {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+/* ======================================================
+   HEADER / NAVIGATION
+   ====================================================== */
+header {
+  background-color: var(--patty-brown);
+  padding: 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.nav-wrap {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.logo {
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 28px;
+  color: var(--bun-yellow);
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: var(--cloud-white);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+nav a:hover {
+  color: var(--bun-yellow);
+}
+
+/* ======================================================
+   HERO SECTION
+   ====================================================== */
+.hero {
+  background-color: var(--sky-blue);
+  text-align: center;
+  padding: 80px 20px 60px;
+}
+
+.hero h1 {
+  font-size: 64px;
+  color: var(--ketchup-red);
+  text-shadow: 3px 3px 0px var(--bun-yellow);
+}
+
+.hero p {
+  font-size: 20px;
+  max-width: 600px;
+  margin: 20px auto 30px;
+  font-weight: 600;
+}
+
+.hero-img {
+  width: 100%;
+  max-width: 500px;
+  height: 320px;
+  margin: 0 auto 30px;
+}
+
+.btn {
+  display: inline-block;
+  background-color: var(--ketchup-red);
+  color: var(--cloud-white);
+  font-weight: 800;
+  padding: 16px 36px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-size: 18px;
+  box-shadow: 0 4px 0 #a83320;
+  transition: transform 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+/* ======================================================
+   MENU SECTION (Burgers & Steaks with prices)
+   ====================================================== */
+.menu {
+  background-color: var(--sky-blue-light);
+}
+
+.menu h2 {
+  text-align: center;
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+.menu-subtitle {
+  text-align: center;
+  margin-bottom: 40px;
+  font-weight: 700;
+  color: var(--patty-brown);
+}
+
+.menu-category h3 {
+  font-size: 28px;
+  color: var(--ketchup-red);
+  margin: 40px 0 20px;
+  border-bottom: 3px solid var(--bun-yellow);
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+}
+
+.menu-item {
+  background-color: var(--cloud-white);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.menu-item .placeholder-img {
+  height: 160px;
+  border-radius: 14px 14px 0 0;
+  border-width: 0 0 3px 0;
+}
+
+.menu-item-info {
+  padding: 18px;
+}
+
+.menu-item-info .item-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.menu-item-info h4 {
+  font-size: 20px;
+  color: var(--patty-brown);
+}
+
+.price {
+  font-weight: 800;
+  color: var(--ketchup-red);
+  font-size: 20px;
+  white-space: nowrap;
+}
+
+.menu-item-info p {
+  font-size: 15px;
+  color: var(--text-dark);
+}
+
+/* ======================================================
+   ABOUT SECTION
+   ====================================================== */
+.about {
+  background-color: var(--sky-blue);
+}
+
+.about-wrap {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.about-text {
+  flex: 1;
+  min-width: 260px;
+}
+
+.about-text h2 {
+  font-size: 38px;
+  margin-bottom: 15px;
+}
+
+.about-img {
+  flex: 1;
+  min-width: 260px;
+  height: 280px;
+}
+
+/* ======================================================
+   FIND OUR STORE SECTION
+   ====================================================== */
+.location {
+  background-color: var(--patty-brown);
+  color: var(--cloud-white);
+}
+
+.location h2 {
+  color: var(--bun-yellow);
+  text-align: center;
+  font-size: 40px;
+  margin-bottom: 40px;
+}
+
+.location-wrap {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+.location-details {
+  flex: 1;
+  min-width: 260px;
+  background-color: rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 30px;
+}
+
+.location-details h3 {
+  color: var(--bun-yellow);
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.location-details p {
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.map-placeholder {
+  flex: 1;
+  min-width: 260px;
+  height: 280px;
+  background-color: rgba(255,255,255,0.08);
+  border: 3px dashed var(--bun-yellow);
+  color: var(--bun-yellow);
+}
+
+/* ======================================================
+   SOCIAL MEDIA SECTION
+   ====================================================== */
+.social {
+  background-color: var(--sky-blue-light);
+  text-align: center;
+}
+
+.social h2 {
+  font-size: 38px;
+  margin-bottom: 10px;
+}
+
+.social p {
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.social-links a {
+  background-color: var(--cloud-white);
+  border: 3px solid var(--lettuce-green);
+  color: var(--patty-brown);
+  text-decoration: none;
+  font-weight: 800;
+  padding: 14px 26px;
+  border-radius: 50px;
+  transition: background-color 0.15s ease;
+}
+
+.social-links a:hover {
+  background-color: var(--lettuce-green);
+  color: var(--cloud-white);
+}
+
+/* ======================================================
+   FOOTER
+   ====================================================== */
+footer {
+  background-color: var(--patty-brown);
+  color: var(--cloud-white);
+  text-align: center;
+  padding: 30px 20px;
+  font-weight: 600;
+}
+
+footer .logo {
+  margin-bottom: 10px;
+}
+
+/* ======================================================
+   RESPONSIVE - small screens
+   ====================================================== */
+@media (max-width: 600px) {
+  .hero h1 {
+    font-size: 42px;
+  }
+  .nav-wrap {
+    flex-direction: column;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ======================================================
+     HEADER / NAVIGATION
+     ====================================================== -->
+<header>
+  <div class="nav-wrap">
+    <div class="logo">🍔 Billy's Burgers</div>
+    <nav>
+      <ul>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#location">Find Us</a></li>
+        <li><a href="#social">Social</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ======================================================
+     HERO SECTION
+     ====================================================== -->
+<section class="hero" id="hero">
+  <div class="section-inner">
+    <h1>BILLY'S BURGERS</h1>
+    <p>Delicious burgers and steaks, made fresh, served fast, and priced right for all our customers.</p>
+
+    <!-- PLACEHOLDER IMAGE: replace with a hero photo of your best burger -->
+    <div class="placeholder-img hero-img">
+      <div class="emoji">🍔</div>
+      <div>PLACEHOLDER IMAGE<br>Add your hero burger photo here</div>
+    </div>
+
+    <a href="#menu" class="btn">See Our Menu</a>
+  </div>
+</section>
+
+<!-- ======================================================
+     MENU SECTION (Burgers & Steaks with prices)
+     ====================================================== -->
+<section class="menu" id="menu">
+  <div class="section-inner">
+    <h2>Our Menu</h2>
+    <p class="menu-subtitle">Delicious burgers & steaks at very affordable prices</p>
+
+    <!-- Burgers -->
+    <div class="menu-category">
+      <h3>Burgers</h3>
+      <div class="menu-grid">
+
+        <div class="menu-item">
+          <!-- PLACEHOLDER IMAGE: replace with photo of Classic Billy Burger -->
+          <div class="placeholder-img">
+            <div class="emoji">🍔</div>
+            <div>PLACEHOLDER IMAGE</div>
+          </div>
+          <div class="menu-item-info">
+            <div class="item-top">
+              <h4>Classic Billy Burger</h4>
+              <span class="price">$6.99</span>
+            </div>
+            <p>Beef patty, cheese, lettuce, tomato & our special sauce.</p>
+          </div>
+        </div>
+
+        <div class="menu-item">
+          <!-- PLACEHOLDER IMAGE: replace with photo of Bacon Deluxe Burger -->
+          <div class="placeholder-img">
+            <div class="emoji">🥓</div>
+            <div>PLACEHOLDER IMAGE</div>
+          </div>
+          <div class="menu-item-info">
+            <div class="item-top">
+              <h4>Bacon Deluxe</h4>
+              <span class="price">$8.49</span>
+            </div>
+            <p>Double beef patty, crispy bacon, cheddar & smoky BBQ sauce.</p>
+          </div>
+        </div>
+
+        <div class="menu-item">
+          <!-- PLACEHOLDER IMAGE: replace with photo of Spicy Jalapeno Burger -->
+          <div class="placeholder-img">
+            <div class="emoji">🌶️</div>
+            <div>PLACEHOLDER IMAGE</div>
+          </div>
+          <div class="menu-item-info">
+            <div class="item-top">
+              <h4>Spicy Jalapeño</h4>
+              <span class="price">$7.99</span>
+            </div>
+            <p>Beef patty, pepper jack cheese, jalapeños & chipotle mayo.</p>
+          </div>
+        </div>
+
+        <div class="menu-item">
+          <!-- PLACEHOLDER IMAGE: replace with photo of Veggie Burger -->
+          <div class="placeholder-img">
+            <div class="emoji">🥬</div>
+            <div>PLACEHOLDER IMAGE</div>
+          </div>
+          <div class="menu-item-info">
+            <div class="item-top">
+              <h4>Garden Veggie</h4>
+              <span class="price">$6.49</span>
+            </div>
+            <p>Grilled veggie patty, avocado, lettuce & tomato.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Steaks -->
+    <div class="menu-category">
+      <h3>Steaks</h3>
+      <div class="menu-grid">
+
+        <div class="menu-item">
+          <!-- PLACEHOLDER IMAGE: replace with photo of Sirloin Steak -->
+          <div class="placeholder-img">
+            <div class="emoji">🥩</div>
+            <div>PLACEHOLDER IMAGE</div>
+          </div>
+          <div class="menu-item-info">
+            <div class="item-top">
+              <h4>Grilled Sirloin</h4>
+              <span class="price">$14.99</span>
+            </div>
+            <p>8oz sirloin steak, served with fries & seasonal veg.</p>
+          </div>
+        </div>
+
+        <div class="menu-item">
+          <!-- PLACEHOLDER IMAGE: replace with photo of Ribeye Steak -->
+          <div class="placeholder-img">
+            <div class="emoji">🥩</div>
+            <div>PLACEHOLDER IMAGE</div>
+          </div>
+          <div class="menu-item-info">
+            <div class="item-top">
+              <h4>Ribeye Steak</h4>
+              <span class="price">$17.99</span>
+            </div>
+            <p>10oz juicy ribeye, char-grilled to your liking.</p>
+          </div>
+        </div>
+
+        <div class="menu-item">
+          <!-- PLACEHOLDER IMAGE: replace with photo of Peppercorn Steak -->
+          <div class="placeholder-img">
+            <div class="emoji">🥩</div>
+            <div>PLACEHOLDER IMAGE</div>
+          </div>
+          <div class="menu-item-info">
+            <div class="item-top">
+              <h4>Peppercorn Steak</h4>
+              <span class="price">$15.99</span>
+            </div>
+            <p>Sirloin steak topped with a creamy peppercorn sauce.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ======================================================
+     ABOUT SECTION
+     ====================================================== -->
+<section class="about" id="about">
+  <div class="section-inner about-wrap">
+    <div class="about-text">
+      <h2>About Billy's Burgers</h2>
+      <p>At Billy's Burgers, we believe great food shouldn't cost a fortune. Every burger and steak on our menu is made fresh to order, using quality ingredients, and served with a smile. Come hungry, leave happy — that's our promise to every customer.</p>
+    </div>
+
+    <!-- PLACEHOLDER IMAGE: replace with a photo of your restaurant, kitchen or team -->
+    <div class="placeholder-img about-img">
+      <div class="emoji">👨‍🍳</div>
+      <div>PLACEHOLDER IMAGE<br>Add a photo of your restaurant or team here</div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     FIND OUR STORE SECTION
+     ====================================================== -->
+<section class="location" id="location">
+  <div class="section-inner">
+    <h2>Find Our Store</h2>
+    <div class="location-wrap">
+      <div class="location-details">
+        <h3>Address</h3>
+        <p>123 Main Street<br>Your Town, Your City<br>Postcode Here</p>
+
+        <h3>Opening Hours</h3>
+        <p>Monday – Friday: 11am – 9pm<br>Saturday – Sunday: 12pm – 10pm</p>
+
+        <h3>Contact</h3>
+        <p>Phone: (000) 123-4567<br>Email: hello@billysburgers.com</p>
+      </div>
+
+      <!-- PLACEHOLDER IMAGE: replace with an embedded map or photo of your storefront -->
+      <div class="placeholder-img map-placeholder">
+        <div class="emoji">📍</div>
+        <div>PLACEHOLDER MAP / IMAGE<br>Add a map embed or storefront photo here</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     SOCIAL MEDIA SECTION
+     ====================================================== -->
+<section class="social" id="social">
+  <div class="section-inner">
+    <h2>Follow Us</h2>
+    <p>Stay up to date with our latest deals and specials!</p>
+    <div class="social-links">
+      <a href="#">📘 Facebook</a>
+      <a href="#">📸 Instagram</a>
+      <a href="#">🐦 Twitter / X</a>
+      <a href="#">🎵 TikTok</a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     FOOTER
+     ====================================================== -->
+<footer>
+  <div class="logo">🍔 Billy's Burgers</div>
+  <p>&copy; 2026 Billy's Burgers. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
